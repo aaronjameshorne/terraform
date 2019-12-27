@@ -88,3 +88,7 @@ resource "aws_route_table" "private-route-table" {
       Name = "Private-Route-Table"
   }
 }
+
+resource "aws_route_table_association" "public-route-table-1-association" {
+  route_table_id = ""
+}
