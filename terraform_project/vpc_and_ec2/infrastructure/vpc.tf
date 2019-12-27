@@ -16,8 +16,8 @@ resource "aws_vpc" "production-vpc" {
 }
 
 resource "aws_subnet" "public-subnet-1" {
-  cidr_block = "${var.public_vpc_subnet_1_cidr}"
-  vpc_id     = "${aws_vpc.production-vpc.id}"
+  cidr_block        = "${var.public_vpc_subnet_1_cidr}"
+  vpc_id            = "${aws_vpc.production-vpc.id}"
   availability_zone = "us-west-1"
 
   tags {
@@ -26,11 +26,26 @@ resource "aws_subnet" "public-subnet-1" {
 }
 
 resource "aws_subnet" "public-subnet-2" {
-  cidr_block = "${var.public_vpc_subnet_2_cidr}"
-  vpc_id     = "${aws_vpc.production-vpc.id}"
-  availability_zone = "us-west-1"
+  cidr_block        = "${var.public_vpc_subnet_2_cidr}"
+  vpc_id            = "${aws_vpc.production-vpc.id}"
+  availability_zone = "us-west-1b"
 
   tags {
       name = "public-subnet-2" 
   }
+}
+
+resource "aws_subnet" "public-subnet-3" {
+  cidr_block        = "${var.public_vpc_subnet_3_cidr}"
+  vpc_id            = "${aws_vpc.production-vpc.id}"
+  availability_zone = "us-west-1c"
+
+  tags {
+      name = "public-subnet-3" 
+  }
+}
+
+resource "aws_subnet" "private-subnet-1" {
+  cidr_block = "${var.private_subnet_1_cidr}"
+  vpc_id = "${var.production-vpc.id}"
 }
