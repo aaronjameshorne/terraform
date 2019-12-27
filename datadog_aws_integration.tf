@@ -3,14 +3,14 @@ provider "datadog" {
   api_key = ""
   app_key = ""
 }
-resource "datadog_integration_aws" "wizmo" {
+resource "datadog_integration_aws" "app" {
   account_id = "7"
   role_name  = "DatadogAWSIntegrationRole"
-  host_tags = ["app:wizmo", "env:prod"]
+  host_tags = ["app:value", "env:prod"]
 }
 
-output "wizmo" {
-  value = "${datadog_integration_aws.wizmo.external_id}"
+output "app" {
+  value = "${datadog_integration_aws.app.external_id}"
 }
 
 
