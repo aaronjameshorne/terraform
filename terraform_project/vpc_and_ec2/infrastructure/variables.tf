@@ -23,3 +23,12 @@ variable "public_vpc_subnet_3_cidr" {
 variable "private_subnet_1_cidr" {
   description = "private subnet 1 cidr"
 }
+
+variable "private_subnet_2_cidr" {
+  description = "private subnet 2 cidr"
+  
+}
+
+variable "private_subnet_3_cidr" {
+   description = "private subnet 3 cidr"
+}
