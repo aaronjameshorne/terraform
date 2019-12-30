@@ -120,3 +120,23 @@ resource "aws_route_table_association" "private-subnet-3-association" {
   
 }
 
+resource "aws_eip" "elastic-ip-for-nat-gw" {
+    vpc = true
+    associate_with_private_ip = "10.0.0.5"
+
+    tags {
+        name = "Production-EIP"
+    }
+  
+}
+
+resource "aws_nat_gatewat" "nat-gw" {
+    allocation_id = "${aws_eip.elastic-ip-for-nat-gw.id}"
+    subnet_id = "${aws_subnet.public-subnet-1.id}"
+
+    tags {
+        name = "Production-NAT-GW"
+    }
+
+    depends_on = ["${aws_eip.elastic-ip-for-nat-gw}"]
+}
