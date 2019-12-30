@@ -7,7 +7,7 @@ terraform {
 }
 
 resource "aws_vpc" "production-vpc" {
-  cidr_block = "${var.vpc_cidr}"
+  cidr_block           = "${var.vpc_cidr}"
   enable_dns_hostnames = true
 
   tags {
@@ -41,23 +41,23 @@ resource "aws_subnet" "public-subnet-3" {
   availability_zone = "us-west-1c"
 
   tags {
-      name = "public-subnet-3" 
+      name          = "public-subnet-3" 
   }
 }
 
 resource "aws_subnet" "private-subnet-1" {
-  cidr_block      = "${var.private_subnet_1_cidr}"
-  vpc_id          = "${var.production-vpc.id}"
+  cidr_block        = "${var.private_subnet_1_cidr}"
+  vpc_id            = "${var.production-vpc.id}"
   availability_zone = "us-west-1a"
 
   tags {
-      Name = "Private-Subnet-1"
+      Name          = "Private-Subnet-1"
   }
 }
 
 resource "aws_subnet" "private-subnet-2" {
-  cidr_block = "${var.private_subnet_2_cidr}"
-  vpc_id = "${var.production-vpc.id}"
+  cidr_block        = "${var.private_subnet_2_cidr}"
+  vpc_id            = "${var.production-vpc.id}"
   availability_zone = "us-west-1b"
 
   tags {
@@ -66,29 +66,34 @@ resource "aws_subnet" "private-subnet-2" {
 }
 
 resource "type" "name" {
-  cider__block = "${var.private_subnet_3_cidr}"
-  vpc_id = "${var.production-vpc.id}"
+  cider__block      = "${var.private_subnet_3_cidr}"
+  vpc_id            = "${var.production-vpc.id}"
   availability_zone = "us-west-1c"
 
   tgas {
-      Name = "Private-subnet-3"
+      Name          = "Private-subnet-3"
   }
 }
 
 resource "aws_route_table" "public-route-table" {
-  vpc_id = "${aws_vpc.production-vpc.id}"
+  vpc_id      = "${aws_vpc.production-vpc.id}"
   tags {
-      Name = "Public-Route-Table"
+      Name    = "Public-Route-Table"
   }
 }
 
 resource "aws_route_table" "private-route-table" {
-  vpc_id = "${aws_vpc.production-vpc.id}"
+  vpc_id      = "${aws_vpc.production-vpc.id}"
   tags {
-      Name = "Private-Route-Table"
+      Name    = "Private-Route-Table"
   }
 }
 
-resource "aws_route_table_association" "public-route-table-1-association" {
-  route_table_id = ""
+resource "aws_route_table_association" "public-subnet-1-association" {
+  route_table_id = "${aws_route_table.public-route-table.id}"
+  subnet_id      = "${aws_subnet.public-subnet-1.id}"
+}
+
+resource "aws_route_table_association" "public-subnet-2-association" {
+  
 }
