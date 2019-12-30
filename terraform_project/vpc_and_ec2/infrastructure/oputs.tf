@@ -21,3 +21,11 @@ output "public_subnet_3_id" {
 output "private_subnet_1_id" {
   value = "${aws_subnet.private-subnet-1.id}"
 }
+
+output "private_subnet_2_id" {
+  value = "${aws_subnet.private-subnet-2.id}"
+}
+
+output "private_subnet_3_id" {
+  value = "${aws_subnet.private-subnet-3.id}"
+}
