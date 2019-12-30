@@ -1,11 +1,11 @@
 variable "region" {
-  default = "us-west-1"
-  description = "new aws vpc adn ec2"
+  default     = "eu-west-1"
+  description = "AWS Region"
 }
 
 variable "vpc_cidr" {
-  default = "10.0.0.0/16"
-  description = "VPC cidr_block"
+  default     = "10.0.0.0/16"
+  description = "VPC CIDR Block"
 }
 
 variable "public_subnet_1_cidr" {
@@ -21,14 +21,13 @@ variable "public_subnet_3_cidr" {
 }
 
 variable "private_subnet_1_cidr" {
-  description = "private subnet 1 cidr"
+  description = "Private Subnet 1 CIDR"
 }
 
 variable "private_subnet_2_cidr" {
-  description = "private subnet 2 cidr"
-  
+  description = "Private Subnet 2 CIDR"
 }
 
 variable "private_subnet_3_cidr" {
-   description = "private subnet 3 cidr"
+  description = "Private Subnet 3 CIDR"
 }
