@@ -20,7 +20,7 @@ resource "aws_security_group" "ec2_public_security_group" {
   name = "EC2-Public-SG"
   description = "Internet reaching access for EC2 instances "
   vpc_id = "${data.terraform_remote_state.network_configuration.vpc_id}"
-}
+
 
 ingress {
     from_port = 80
@@ -41,4 +41,6 @@ egress {
     protocol = "-1"
     to_port = 0
     cidr_blocks = ["0.0.0.0/0"]
+}
+
 }
