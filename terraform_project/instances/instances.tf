@@ -33,7 +33,7 @@ ingress {
     from_port = 22
     protocol = "TCP"
     to_port = 22
-    cidr_blocks = ["45.73.149.202"]
+    cidr_blocks = ["45.73.149.202/32"]
 }
 
 egress {
@@ -41,6 +41,12 @@ egress {
     protocol = "-1"
     to_port = 0
     cidr_blocks = ["0.0.0.0/0"]
+ }
+
 }
 
+resource "aws_security_group" "ec2_private_security_group" {
+  name = "EC2-Private-SG"
+  description = "Only allow public security group resouces to access these instances"
+  vpc_id = "${data.terraform_remote_state.network_configuration.vpc_id}"
 }
