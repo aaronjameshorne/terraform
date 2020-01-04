@@ -3,9 +3,6 @@ provider "aws" {
   
 }
 
-terraform {
-    bacnkend "s3" {}
-}
 
 data "terraform_remote_state" "network_configuration" {
     backend = "s3"
