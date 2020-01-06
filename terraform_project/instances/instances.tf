@@ -181,6 +181,25 @@ resource "aws_launch_configuration" "ec2_public_launch_configuration" {
   service httpd start
   chkconfig httpd on
   export INSTANCE_ID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
-  echo  "<html><body><h1>Hello from Production Backend at instance<b>"$INSTANCE_ID"</b></h1></body?</html> > /var/www/html/index.html
+  echo  "<html><body><h1>Hello from Production Web App at instance<b>"$INSTANCE_ID"</b></h1></body?</html> > /var/www/html/index.html
   EOF
+}
+
+resource "aws_elb" "webapp_lod_balancer" {
+    name = "Prooruction-WebApp-LoadBalancer"
+    internal = false
+    security_groups = ["${aws_security_group.id}"]
+    subnets = [
+        "${data.terraform_remote_state.network_configuration.public_subnet_1_id}",
+        "${data.terraform_remote_state.network_configuration.public_subnet_2_id}",
+        "${data.terraform_remote_state.network_configuration.public_subnet_3_id}"
+
+    ]
+  
+  "listener"{
+      instance_port = 0
+      instance_protocol = ""
+      lb_port = 0
+      lb_protocol = ""
+  }
 }
