@@ -151,5 +151,6 @@ resource "aws_launch_configuration" "ec2_private_launch_configuration" {
   image_id = "${data.aws_ami.launch_configuration_ami}"
   instance_type = "${var.ec2_instance_type}"
   key_name = "${var.key_pair_name}"
+  associate_public_ip_address = false
 }
 

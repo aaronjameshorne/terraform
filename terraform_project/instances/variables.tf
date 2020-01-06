@@ -20,5 +20,6 @@ variable "ec2_instance_type" {
 
 variable "key_pair_name" {
   default = "webapp"
+  description = "Key to use for ec2 instance"
   
 }
