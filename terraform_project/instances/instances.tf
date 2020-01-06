@@ -111,3 +111,24 @@ resource "aws_iam_role" "ec2_iam_role" {
 }
   EOF
 }
+
+resource "aws_iam_role_policy" "ec2_iam_role_policy" {
+    name = "EC2-IAM-POLICY"
+    role = "${aws_iam_role.ec2_iam_role.id}"
+    policy = <<EOF
+  {
+      "Version" : "2012-10-17",
+      "Statement" : [
+          {
+              "Effect" : "Allow",
+              "Action": [
+                  "ec2:*",
+                  "elasticloadbalancing:*",
+                  "cloudwatch:*",
+                  "logs:*"
+              ]
+          }
+      ]
+  }
+EOF
+}
