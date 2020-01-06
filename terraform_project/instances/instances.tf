@@ -197,9 +197,43 @@ resource "aws_elb" "webapp_lod_balancer" {
     ]
   
   "listener"{
-      instance_port = 0
-      instance_protocol = ""
-      lb_port = 0
-      lb_protocol = ""
+      instance_port = 80
+      instance_protocol = "HTTP"
+      lb_port = 80
+      lb_protocol = "HTTP"
   }
+
+  "health_check" {
+      healthy_threshold = 5
+      interval = 30
+      target = "HTTP:80/index.html"
+      timeout = 10
+      unhealthy_threshold = 5
+  }
+}
+
+resource "aws_elb" "backend)load_balancer" {
+    name = "Production-Backend-LoadBalancer"
+    internal = true
+    security_groups = ["${aws_security_group.elb_security_group.id}"]
+    subnets = [
+        "${data.terraform_remote_state.network_configuration.private_subnet_1_id}",
+        "${data.terraform_remote_state.network_configuration.private_subnet_2_id}",
+        "${data.terraform_remote_state.network_configuration.private_subnet_3_id}"
+    ]
+
+    "listener" {
+        instance_port = 80
+        instance_protocol = "HTTP"
+        lb_port = 80
+        lb_protocol = "HTTP"
+    }
+    "health_check" {
+      healthy_threshold = 5
+      interval = 30
+      target = "HTTP:80/index.html"
+      timeout = 10
+      unhealthy_threshold = 5
+  }
+    
 }
