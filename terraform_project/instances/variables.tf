@@ -13,3 +13,12 @@ variable "remote_state_key" {
     description = "Key name for layer 1 remote state"
   
 }
+
+variable "ec2_instance_type" {
+  description = "EC2 Instance type to launch"
+}
+
+variable "key_pair_name" {
+  default = "webapp"
+  
+}

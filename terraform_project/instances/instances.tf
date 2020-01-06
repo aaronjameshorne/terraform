@@ -132,3 +132,24 @@ resource "aws_iam_role_policy" "ec2_iam_role_policy" {
   }
 EOF
 }
+
+resource "aws_iam_instance_profile" "ec2_instance_profile" {
+  name = "EC2-INSTANCE-Profile"
+  role = "${aws_iam_role.ec2_iam_role.name}"
+}
+
+data "aws_ami" "launch_configuration_ami" {
+    most_recent = true
+    
+    filter {
+      name = "own-alias"
+      value = ["amazon"]
+    }
+}
+
+resource "aws_launch_configuration" "ec2_private_launch_configuration" {
+  image_id = "${data.aws_ami.launch_configuration_ami}"
+  instance_type = "${var.ec2_instance_type}"
+  key_name = "${var.key_pair_name}"
+}
+
