@@ -212,7 +212,7 @@ resource "aws_elb" "webapp_lod_balancer" {
   }
 }
 
-resource "aws_elb" "backend)load_balancer" {
+resource "aws_elb" "backend_load_balancer" {
     name = "Production-Backend-LoadBalancer"
     internal = true
     security_groups = ["${aws_security_group.elb_security_group.id}"]
@@ -249,5 +249,6 @@ resource "aws_autoscaling_group" "ec2_private_autoscaling_group" {
   min_size =  "${var.max_instance_size}"
   launch_configuration = "${aws.launch_configuration.ec2_private_launch_configuration.name}"
   health_check_type = "ELB"
+  load_balancers = ["${aws_elb.backend_load_balancer.name}"]
 
 }
