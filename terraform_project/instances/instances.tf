@@ -297,3 +297,15 @@ resource "aws_autoscaling_policy" "backend_production_scaling_policy" {
   }
 
 }
+
+resource "aws_sns_topic" "webapp_production_autoscaling_alert_topic" {
+    display_name = "Webapp-AutoScaling-Topic"
+    name = "Webapp-AutoScaling-Topic"
+  
+}
+
+resource "aws_sns_topic_subscription" "webapp_production_autoscaling_sms_subscription" {
+  endpoint = "+99544898657"
+  protocol = "sms"
+  topic_arn = "${aws_sns_topic.webapp_production_autoscaling_alert_topic.arn}"
+}
