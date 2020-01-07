@@ -240,11 +240,14 @@ resource "aws_elb" "backend)load_balancer" {
 
 resource "aws_autoscaling_group" "ec2_private_autoscaling_group" {
   name = "Production-Backend-AutoScalingGroup"
-  vpc_zone_identifier[
+  vpc_zone_identifier = [
       "${data.terraform_remote_state.network_configuration.private_subnet_1_id}",
       "${data.terraform_remote_state.network_configuration.private_subnet_2_id}",
       "${data.terraform_remote_state.network_configuration.private_subnet_3_id}"
   ]
-  max_size = 0
-  min_size = 0
+  max_size = "${var.max_instance_size}"
+  min_size =  "${var.max_instance_size}"
+  launch_configuration = "${aws.launch_configuration.ec2_private_launch_configuration.name}"
+  health_check_type = "ELB"
+
 }
