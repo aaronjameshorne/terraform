@@ -246,9 +246,25 @@ resource "aws_autoscaling_group" "ec2_private_autoscaling_group" {
       "${data.terraform_remote_state.network_configuration.private_subnet_3_id}"
   ]
   max_size = "${var.max_instance_size}"
-  min_size =  "${var.max_instance_size}"
+  min_size = "${var.max_instance_size}"
   launch_configuration = "${aws.launch_configuration.ec2_private_launch_configuration.name}"
   health_check_type = "ELB"
   load_balancers = ["${aws_elb.backend_load_balancer.name}"]
+  
+}
+
+resource "aws_autoscaling_group" "ec2_public_autoscaling_group" {
+    name = "Production-WebApp-AutoscalingGroup"
+    vpc_zone_indentifier = [
+        "${data.terraform_remote_state.network_configuration.public_subnet_1_id}",
+        "${data.terraform_remote_state.network_configuration.public_subnet_2_id}",
+        "${data.terraform_remote_state.network_configuration.public_subnet_3_id}"
+    ]
+  max_size = "${var.max_instance_size}"
+  min_size = "${var.max_instance_size}"
+  launch_configuration = ""
+  health_check_type = "ELB"
+  load_balancers = ["${aws_elb.backend_load_balancer.name}"]
+
 
 }
