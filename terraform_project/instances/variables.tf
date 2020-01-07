@@ -23,3 +23,12 @@ variable "key_pair_name" {
   description = "Key to use for ec2 instance"
   
 }
+
+variable "max_instance_size" {
+  description = "Max number of instances to launch"
+}
+
+variable "min_instance_size" {
+  description = "Min number of instances to launch"
+}
+
