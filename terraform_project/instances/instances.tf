@@ -268,3 +268,10 @@ resource "aws_autoscaling_group" "ec2_public_autoscaling_group" {
 
 
 }
+
+resource "aws_autoscaling_policy" "webapp_production_scaling_policy" {
+  autoscaling_group_name = "${aws_autoscaling_group.ec2_public_autoscaling_group.name}"
+  name = "production-webapp-autoscaling-policy"
+  policy_type = "TargetTrackingPolicy"
+  min_adjustment_magnitude = 1
+}
