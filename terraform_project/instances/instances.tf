@@ -3,18 +3,6 @@ provider "aws" {
   
 }
 
-terraform {
-    backend "s3"{}
-}
-data "terraform_remote_state" "network_configuration" {
-    backend = "s3"
-    config {
-        bucket = "${var.remote_state_bucket}"
-        key = "${var.remote_state_key}"
-        region = "${var.region}"
-    }
-}
-
 resource "aws_security_group" "ec2_public_security_group" {
   name = "EC2-Public-SG"
   description = "Internet reaching access for EC2 instances "
@@ -53,7 +41,7 @@ resource "aws_security_group" "ec2_private_security_group" {
       from_port = 0
       protocol = "-1"
       to_port = 0
-      cidr_blocks = ["${aws_security_group.ec2_public_security_group.id}"]
+      security_groups = ["${aws_security_group.ec2_public_security_group.id}"]
   }
 
     ingress {
