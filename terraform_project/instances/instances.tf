@@ -181,7 +181,7 @@ resource "aws_elb" "webapp_load_balancer" {
     "${data.terraform_remote_state.network_configuration.public_subnet_3_id}"
   ]
 
-  "listener" {
+  listener {
     instance_port = 80
     instance_protocol = "HTTP"
     lb_port = 80
@@ -207,7 +207,7 @@ resource "aws_elb" "backend_load_balancer" {
     "${data.terraform_remote_state.network_configuration.private_subnet_3_id}"
   ]
 
-  "listener" {
+  listener {
     instance_port     = 80
     instance_protocol = "HTTP"
     lb_port           = 80
@@ -309,7 +309,7 @@ resource "aws_sns_topic" "webapp_production_autoscaling_alert_topic" {
 }
 
 resource "aws_sns_topic_subscription" "webapp_production_autoscaling_sms_subscription" {
-  endpoint  = "PHONE_NUMBER"
+  endpoint  = "99544898657"
   protocol  = "sms"
   topic_arn = "${aws_sns_topic.webapp_production_autoscaling_alert_topic.arn}"
 }
