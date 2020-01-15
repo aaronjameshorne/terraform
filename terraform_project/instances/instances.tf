@@ -114,7 +114,8 @@ resource "aws_iam_role_policy" "ec2_iam_role_policy" {
                   "elasticloadbalancing:*",
                   "cloudwatch:*",
                   "logs:*"
-              ]
+              ],
+              "Resource": "*"
           }
       ]
   }
@@ -136,7 +137,7 @@ data "aws_ami" "launch_configuration_ami" {
 }
 
 resource "aws_launch_configuration" "ec2_private_launch_configuration" {
-  image_id = "${data.aws_ami.launch_configuration_ami}"
+  image_id = "ami-062f7200baf2fa504"
   instance_type = "${var.ec2_instance_type}"
   key_name = "${var.key_pair_name}"
   associate_public_ip_address = false
@@ -146,7 +147,7 @@ resource "aws_launch_configuration" "ec2_private_launch_configuration" {
   user_data = <<EOF
   #!/bin/bash
   yum update -y
-  yum install httpd24 -y
+  yum install httpd -y
   service httpd start
   chkconfig httpd on
   export INSTANCE_ID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
@@ -155,7 +156,7 @@ resource "aws_launch_configuration" "ec2_private_launch_configuration" {
 }
 
 resource "aws_launch_configuration" "ec2_public_launch_configuration" {
-  image_id = "${data.aws_ami.launch_configuration_ami.id}"
+  image_id = "ami-062f7200baf2fa504"
   instance_type = "${var.ec2_instance_type}"
   key_name = "${var.key__pair_name}"
   associate_public_ip_address = true
@@ -165,7 +166,7 @@ resource "aws_launch_configuration" "ec2_public_launch_configuration" {
   user_data = <<EOF
   #!/bin/bash
   yum update -y
-  yum install httpd24 -y
+  yum install httpd -y
   service httpd start
   chkconfig httpd on
   export INSTANCE_ID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
