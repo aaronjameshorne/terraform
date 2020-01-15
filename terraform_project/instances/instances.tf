@@ -137,7 +137,7 @@ data "aws_ami" "launch_configuration_ami" {
 }
 
 resource "aws_launch_configuration" "ec2_private_launch_configuration" {
-  image_id = "ami-062f7200baf2fa504"
+  image_id = "ami-03caa3f860895f82e"
   instance_type = "${var.ec2_instance_type}"
   key_name = "${var.key_pair_name}"
   associate_public_ip_address = false
@@ -156,7 +156,7 @@ resource "aws_launch_configuration" "ec2_private_launch_configuration" {
 }
 
 resource "aws_launch_configuration" "ec2_public_launch_configuration" {
-  image_id = "ami-062f7200baf2fa504"
+  image_id = "ami-03caa3f860895f82e"
   instance_type = "${var.ec2_instance_type}"
   key_name = "${var.key__pair_name}"
   associate_public_ip_address = true
