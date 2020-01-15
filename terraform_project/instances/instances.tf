@@ -185,7 +185,7 @@ resource "aws_elb" "webapp_lod_balancer" {
 
     ]
   
-  "listener"{
+  listener{
       instance_port = 80
       instance_protocol = "HTTP"
       lb_port = 80
