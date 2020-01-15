@@ -192,7 +192,7 @@ resource "aws_elb" "webapp_lod_balancer" {
       lb_protocol = "HTTP"
   }
 
-  "health_check" {
+  health_check {
       healthy_threshold = 5
       interval = 30
       target = "HTTP:80/index.html"
@@ -211,13 +211,13 @@ resource "aws_elb" "backend_load_balancer" {
         "${data.terraform_remote_state.network_configuration.private_subnet_3_id}"
     ]
 
-    "listener" {
+    listener {
         instance_port = 80
         instance_protocol = "HTTP"
         lb_port = 80
         lb_protocol = "HTTP"
     }
-    "health_check" {
+    health_check {
       healthy_threshold = 5
       interval = 30
       target = "HTTP:80/index.html"
