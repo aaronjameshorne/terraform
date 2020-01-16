@@ -10,13 +10,13 @@ variable "AMIS" {
 }
 
 variable "instance_username" {
-  default = ""
-}
-
-variable "instance_password" {
-  default = ""
+  default = "ec2-user"
 }
 
 variable "path_to_private_key" {
-  default = ""
+  default = "mykey"
+}
+
+variable "PATH_TO_PUBLIC_KEY" {
+  default = "mykey.pub"
 }
