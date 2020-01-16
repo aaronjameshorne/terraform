@@ -16,3 +16,7 @@ variable "instance_username" {
 variable "instance_password" {
   default = ""
 }
+
+variable "path_to_private_key" {
+  default = ""
+}

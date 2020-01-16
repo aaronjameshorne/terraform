@@ -5,13 +5,14 @@ resource "aws_key_pair" "aaron-key" {
 resource "aws_instance" "example" {
   ami = "${lookup(var.AMIS, var.AWS_REGION)}"
   instance_type = "t2.micro"
+  key_name = "${aws_key_pair.mykey.key_name}"
 
 provisioner "file" {
     source = "app.conf"
     destination = "/opt/script.sh"
     connection{
         user = "${var.instance_username}"
-        password = "${var.insance_password}"
+        private_key = "${file(${var.path_to_private_key})}"
     }
   }
 
