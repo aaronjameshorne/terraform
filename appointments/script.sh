@@ -6,8 +6,8 @@ until [[ -f /var/lib/cloud/instance/boot-finished ]]; do
 done
 
 # install nginx
-apt-get update
-apt-get -y install nginx
+yum update
+yum -y install htop
 
 # make sure nginx is started
-service nginx start
+
