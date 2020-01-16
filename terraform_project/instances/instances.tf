@@ -2,6 +2,20 @@ provider "aws" {
   region = "${var.region}"
 }
 
+terraform {
+  backend "s3" {}
+}
+
+data "terraform_remote_state" "network_configuration" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket}"
+    key    = "${var.remote_state_key}"
+    region = "${var.region}"
+  }
+}
+
 resource "aws_security_group" "ec2_public_security_group" {
   name        = "EC2-Public-SG"
   description = "Internet reaching access for EC2 Instances"
@@ -134,7 +148,7 @@ data "aws_ami" "launch_configuration_ami" {
 }
 
 resource "aws_launch_configuration" "ec2_private_launch_configuration" {
-  image_id                    = "ami-09693313102a30b2c"
+  image_id                    = "ami-03caa3f860895f82e"
   instance_type               = "${var.ec2_instance_type}"
   key_name                    = "${var.key_pair_name}"
   associate_public_ip_address = false
@@ -153,7 +167,7 @@ resource "aws_launch_configuration" "ec2_private_launch_configuration" {
 }
 
 resource "aws_launch_configuration" "ec2_public_launch_configuration" {
-  image_id                    = "ami-09693313102a30b2c"
+  image_id                    = "ami-03caa3f860895f82e"
   instance_type               = "${var.ec2_instance_type}"
   key_name                    = "${var.key_pair_name}"
   associate_public_ip_address = true
