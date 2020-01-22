@@ -4,7 +4,7 @@ variable "AWS_REGION" {
 }
 
 variable "AMIS" {
-  default =  "ami-03caa3f860895f82e"
+  default = "ami-03caa3f860895f82e"
 }
 
 variable "PATH_TO_PRIVATE_KEY" {
