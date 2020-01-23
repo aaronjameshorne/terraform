@@ -4,7 +4,7 @@ resource "aws_vpc" "main" {
   enable_dns_support  = "true"
   enable_dns_hostnames = "true"
   enable_classiclink  = "false"
-  tags {
+  tags = {
     Name = "main"
   }
 }
@@ -16,7 +16,7 @@ resource "aws_subnet" "main-public-1" {
   map_public_ip_on_launch = "true"
   availability_zone       = "eu-west-1a"
 
-  tags {
+  tags = {
     Name = "main-public-1"
   }
 }
@@ -27,7 +27,7 @@ resource "aws_subnet" "main-public-2" {
   map_public_ip_on_launch = "true"
   availability_zone       = "eu-west-1b"
 
-  tags {
+  tags = {
     Name = "main-public-2"
   }
 }
