@@ -11,19 +11,6 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["73.139.34.225/32"]
   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-resource "aws_security_group" "allow_ssh_chewy" {
-  name        = "allow_ssh"
-  description = "ssh_connect"
-  
-
   ingress {
     from_port   = 22
     to_port     = 22
@@ -39,6 +26,8 @@ resource "aws_security_group" "allow_ssh_chewy" {
   }
 }
 
+
+
 resource "aws_key_pair" "mykey" {
   key_name   = "mykey"
   public_key = "${var.PATH_TO_PUBLIC_KEY}"
@@ -47,7 +36,7 @@ resource "aws_key_pair" "mykey" {
 resource "aws_instance" "example" {
   ami           = "${var.AMIS}"
   instance_type = "t2.micro"
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}","${aws_security_group.allow_ssh_chewy.id}"]
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
   key_name = "${aws_key_pair.mykey.key_name}"
   user_data = <<EOF
 #!/bin/bash
