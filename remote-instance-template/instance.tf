@@ -39,8 +39,12 @@ echo -e 'password\npassword\n' | sudo passwd ec2-user
 echo -e 'password\npassword\n' | sudo passwd root
 sudo yum install -y git
 sudo yum install -y sshpass
-sudo yum install -y python
-sudo yum install -y virtualenv
+yum -y install python-pip
+sudo amazon-linux-extras install -y epel
+sudo yum install -y ansible
+sudo yum install -y python34 python-pip
+sudo pip install -U pip
+sudo pip install -U virtualenv
 cd /home/ec2-user/
 git clone https://github.com/aaronjameshorne/python.git
 sudo yum install epel-release
@@ -152,7 +156,8 @@ EOF
 
   tags = {
     datadog = "yes"
-    Environment = "dev"
+    environment = "dev"
+    ansible = "yes"
 
   }
 }
