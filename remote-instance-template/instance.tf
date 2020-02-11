@@ -54,6 +54,7 @@ sudo pip install -U pip
 sudo pip install -U virtualenv
 cd /home/ec2-user/
 git clone https://github.com/aaronjameshorne/python.git
+git clone https://github.com/aaronjameshorne/terraform.git
 sudo yum install epel-release
 sudo yum -y update
 curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | bash
@@ -65,4 +66,11 @@ EOF
     ansible = "yes"
 
   }
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.example.public_ip} >> public_ips.txt"
+  }
+}
+
+output "ip" {
+  value = aws_instance.example.public_ip
 }
