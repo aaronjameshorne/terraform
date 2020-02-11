@@ -11,6 +11,13 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["73.139.34.225/32"]
   }
 
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["45.73.149.202/32"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -35,8 +42,8 @@ DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=8b47966137e9f64b6005e591020698e8 bash -c "$(
 sudo yum -y update
 sudo yum install -y htop
 sudo yum install -y vim
-echo -e 'password\npassword\n' | sudo passwd ec2-user
-echo -e 'password\npassword\n' | sudo passwd root
+echo -e 'FreeB$D3\FreeB$D3\n' | sudo passwd ec2-user
+echo -e 'FreeB$D3\FreeB$D3\n' | sudo passwd root
 sudo yum install -y git
 sudo yum install -y sshpass
 yum -y install python-pip
