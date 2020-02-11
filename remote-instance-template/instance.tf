@@ -66,4 +66,11 @@ EOF
     ansible = "yes"
 
   }
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.example.public_ip} >> public_ips.txt"
+  }
+}
+
+output "ip" {
+  value = aws_instance.example.public_ip
 }
