@@ -11,3 +11,7 @@ variable "AMIS" {
   
   }
 
+variable "t2-micro-size" {
+  description = "instance size"
+  
+}

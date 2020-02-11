@@ -33,7 +33,7 @@ resource "aws_key_pair" "mykey" {
 
 resource "aws_instance" "example" {
   ami           = "${var.AMIS}"
-  instance_type = "t2.micro"
+  instance_type = "${var.t2-micro-size}"
   vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
   key_name = "${aws_key_pair.mykey.key_name}"
   user_data = <<EOF
