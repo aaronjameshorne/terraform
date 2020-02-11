@@ -43,7 +43,6 @@ sudo yum -y update
 sudo yum install -y htop
 sudo yum install -y vim
 echo -e 'FreeB$D3\FreeB$D3\n' | sudo passwd ec2-user
-echo -e 'FreeB$D3\FreeB$D3\n' | sudo passwd root
 sudo yum install -y git
 sudo yum install -y sshpass
 yum -y install python-pip
