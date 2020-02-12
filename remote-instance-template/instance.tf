@@ -12,9 +12,9 @@ resource "aws_security_group" "allow_ssh" {
   }
 
   ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["45.73.149.202/32"]
   }
 
@@ -32,10 +32,10 @@ resource "aws_key_pair" "mykey" {
 }
 
 resource "aws_instance" "example" {
-  ami           = "${var.AMIS}"
-  instance_type = "${var.t2-micro-size}"
+  ami                   = "${var.AMIS}"
+  instance_type          = "${var.t2-micro-size}"
   vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
-  key_name = "${aws_key_pair.mykey.key_name}"
+  key_name               = "${aws_key_pair.mykey.key_name}"
   user_data = <<EOF
 #!/bin/bash
 DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=8b47966137e9f64b6005e591020698e8 bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"
@@ -60,9 +60,9 @@ curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/
 EOF
 
   tags = {
-    datadog = "yes"
-    environment = "dev"
-    ansible = "yes"
+    datadog      = "yes"
+    environment  = "dev"
+    ansible      = "yes"
 
   }
   provisioner "local-exec" {
