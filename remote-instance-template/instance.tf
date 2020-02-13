@@ -40,7 +40,6 @@ resource "aws_instance" "example" {
 #!/bin/bash
 DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=8b47966137e9f64b6005e591020698e8 bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"
 sudo yum -y update
-sudo yum install python34 python34-pip
 sudo yum install -y htop
 sudo yum install -y vim
 echo -e 'FreeB$D3\FreeB$D3\n' | sudo passwd ec2-user
@@ -58,6 +57,7 @@ git clone https://github.com/aaronjameshorne/terraform.git
 sudo yum install epel-release
 sudo yum -y update
 curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | bash
+sudo yum install python34 python34-pip
 EOF
 
   tags = {
