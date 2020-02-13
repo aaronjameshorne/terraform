@@ -1,3 +1,9 @@
+cd ~/terraform/remote-instance-template
+
+terraform apply -auto-approve -var-file="variables.tfvars"
+
+sleep 2m
+
 domain="aaronhorne.co"                              # your domain
 type="A"                                            # Record type A, CNAME, MX, etc.
 name="@"                                            # name of record to update
