@@ -57,7 +57,7 @@ git clone https://github.com/aaronjameshorne/terraform.git
 sudo yum install epel-release
 sudo yum -y update
 curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | bash
-sudo yum install python34 python34-pip
+sudo yum install -y python34 python34-pip
 EOF
 
   tags = {
@@ -67,7 +67,7 @@ EOF
 
   }
   provisioner "local-exec" {
-    command = "echo ssh ec2-user@${aws_instance.example.public_ip} > public_ips.txt"
+    command = "echo ssh ec2-user@${aws_instance.example.public_ip}\n  > public_ips.txt"
   }
 }
 
