@@ -67,7 +67,7 @@ EOF
 
   }
   provisioner "local-exec" {
-    command = "echo ssh ec2-user@${aws_instance.example.public_ip}\n  > public_ips.txt"
+    command = "echo ${aws_instance.example.public_ip}  > public_ips.txt"
   }
 }
 
