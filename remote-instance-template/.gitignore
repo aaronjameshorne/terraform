@@ -8,3 +8,8 @@
 */terraform.tfvars
 *.tfvars.*
 variables.tfvars
+#key file
+keyfile.txt
+*keyfile.*
+*keyfile*
+*.keyfile.*
