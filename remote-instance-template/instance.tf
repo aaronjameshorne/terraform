@@ -28,23 +28,8 @@ resource "aws_security_group" "allow_ssh" {
 
 data "aws_ami" "amz2_linux" {
   most_recent = true
-  name_regex       = "^myami-\\d{3}"
   owners = ["self"]
 
-  filter {
-    name   = "name"
-    values = ["myami-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  filter {
-    name   = "owner-alias"
-    values = ["amazon"]
-  }
 }
 
 resource "aws_key_pair" "mykey" {
