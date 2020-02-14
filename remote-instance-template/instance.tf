@@ -28,11 +28,12 @@ resource "aws_security_group" "allow_ssh" {
 
 data "aws_ami" "amz2_linux" {
   most_recent = true
+  name_regex       = "^myami-\\d{3}"
   owners = ["self"]
 
   filter {
     name   = "name"
-    values = ["myami-*-x86_64-gp2"]
+    values = ["myami-*"]
   }
 
   filter {
