@@ -62,7 +62,6 @@ DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=8b47966137e9f64b6005e591020698e8 bash -c "$(
 sudo yum -y update
 sudo yum install -y htop
 sudo yum install -y vim
-echo -e 'FreeB$D3\FreeB$D3\n' | sudo passwd ec2-user
 sudo yum install -y git
 sudo yum install -y sshpass
 yum -y install python-pip
