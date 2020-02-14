@@ -26,13 +26,19 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
+data "aws_ami" "amz2_linux" {
+  most_recent = true
+  owners = ["self"]
+
+}
+
 resource "aws_key_pair" "mykey" {
   key_name   = "mykey"
   public_key = "${var.PATH_TO_PUBLIC_KEY}"
 }
 
 resource "aws_instance" "example" {
-  ami                   = "${var.AMIS}"
+  ami                   = "${data.aws_ami.amz2_linux.id}"
   instance_type          = "${var.t2-micro-size}"
   vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
   key_name               = "${aws_key_pair.mykey.key_name}"
@@ -42,7 +48,6 @@ DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=8b47966137e9f64b6005e591020698e8 bash -c "$(
 sudo yum -y update
 sudo yum install -y htop
 sudo yum install -y vim
-echo -e 'FreeB$D3\FreeB$D3\n' | sudo passwd ec2-user
 sudo yum install -y git
 sudo yum install -y sshpass
 yum -y install python-pip
