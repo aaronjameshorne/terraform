@@ -28,6 +28,7 @@ resource "aws_security_group" "allow_ssh" {
 
 data "aws_ami" "amz2_linux" {
   most_recent = true
+  owners = ["self"]
 
   filter {
     name   = "name"
