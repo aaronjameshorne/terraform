@@ -26,13 +26,32 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
+data "aws_ami" "amz2_linux" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-*-x86_64-gp2"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "owner-alias"
+    values = ["amazon"]
+  }
+}
+
 resource "aws_key_pair" "mykey" {
   key_name   = "mykey"
   public_key = "${var.PATH_TO_PUBLIC_KEY}"
 }
 
 resource "aws_instance" "example" {
-  ami                   = "${var.AMIS}"
+  ami                   = "${data.aws_ami.amz2_linux.id}"
   instance_type          = "${var.t2-micro-size}"
   vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
   key_name               = "${aws_key_pair.mykey.key_name}"
