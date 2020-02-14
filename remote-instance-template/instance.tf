@@ -31,6 +31,32 @@ data "aws_ami" "amz2_linux" {
   owners = ["self"]
 
 }
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "dev_ec2_instance"
+  role = "${aws_iam_role.role.name}"
+}
+
+
+resource "aws_iam_role" "role" {
+  name = "dev_ec2_instance"
+  path = "/"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+               "Service": "s3"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
+}
 
 resource "aws_key_pair" "mykey" {
   key_name   = "mykey"
@@ -42,6 +68,7 @@ resource "aws_instance" "example" {
   instance_type          = "${var.t2-micro-size}"
   vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
   key_name               = "${aws_key_pair.mykey.key_name}"
+  iam_instance_profile   = "${aws_iam_instance_profile.ec2_profile.id}"
   user_data = <<EOF
 #!/bin/bash
 DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=8b47966137e9f64b6005e591020698e8 bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"
