@@ -1,7 +1,7 @@
 terraform{
     backend "s3" {
-        bucket = "remote-ec2-template-2020-10-02"
+        bucket = "automatingaws20200213"
         key = "state/remote-bucket/terraform.tfstate"
-        region = "us-west-1"
+        region = "us-west-2"
     }
 }
