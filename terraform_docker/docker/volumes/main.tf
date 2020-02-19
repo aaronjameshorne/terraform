@@ -4,19 +4,21 @@ resource "docker_container" "mysql_container" {
   env   = [
     "MYSQL_ROOT_PASSWORD=${var.mysql_root_password}"
   ]
+  volumes {
+    volume_name = "${docker_volume.mysql_data_volume.name}"
+    container_path = "/var/lib/mysql"
+}
   networks_advanced {
     name    = "${docker_network.private_bridge_network.name}"
     aliases = ["${var.mysql_network_alias}"]
   }
 }
-
 resource "null_resource" "sleep" {
   depends_on = ["docker_container.mysql_container"]
   provisioner "local-exec" {
     command = "sleep 15s"
   }
 }
-
 resource "docker_container" "blog_container" {
   name  = "ghost_blog"
   image = "${docker_image.ghost_image.name}"
@@ -41,3 +43,4 @@ resource "docker_container" "blog_container" {
     aliases = ["${var.ghost_network_alias}"]
   }
 }
+
