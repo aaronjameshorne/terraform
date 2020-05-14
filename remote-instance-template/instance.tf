@@ -3,19 +3,11 @@ resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "ssh_connect"
   
-
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["73.139.34.225/32"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["45.73.149.202/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -42,7 +34,6 @@ resource "aws_instance" "example" {
   instance_type          = "${var.t2-micro-size}"
   vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
   key_name               = "${aws_key_pair.mykey.key_name}"
-  user_data              = "${var.package_install}"
 
   tags = {
     datadog      = "yes"
@@ -53,8 +44,4 @@ resource "aws_instance" "example" {
   provisioner "local-exec" {
     command = "echo ${aws_instance.example.public_ip}  > public_ips.txt"
   }
-}
-
-output "ip" {
-  value = aws_instance.example.public_ip
 }
